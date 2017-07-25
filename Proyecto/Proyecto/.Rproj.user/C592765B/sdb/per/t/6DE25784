@@ -1,0 +1,16 @@
+{
+    "contents" : "#Autores:\n  # Ignacio Martín Requena\n  # Pedro Antonio Ruiz Cuesta\n\n#Dataset utilizado:\n  # Airfoil self-noise\n\n#Atributos (6):\n  #- Frequency, in Hertz\n  #- Angle of attack, in degrees.\n  #- Chord length, in meters.\n  #- Free-stream velocity, in meters per second.\n  #- Suction side displacement thickness, in meters.\n  #- Scaled sound pressure level, in decibels.\n\n#Directorio de trabajo\npath = \"/home/ignacio/Copy/Informatica/Carrera/3º/2º Cuatrimestre/AA/Proyecto/Proyecto\"\nsetwd(path)\n\n#Lectura de dataset\nAirfoil=read.table(\"datos/airfoil_self_noise.txt\",header=T, na.strings=\"?\")\nAirfoil=na.omit(Airfoil) #Elimina las muestras que tienen algún dato perdido\nattach(Airfoil)\n\n#Librerias utilizadas\nlibrary(ISLR)\nlibrary(e1071)\nlibrary(MASS)\nlibrary(car)\n\n#Analisis de la base de datos\n\nsummary(Airfoil) #Muestra información básica sobre la base de datos\n\ncor(Airfoil) #Muestra la matriz de correlación entre las variables de la BD\n\npairs(Airfoil) #Muestra todas las gráficas de todas las variables frente a todas las variables de la base de datos\n\nhist(SSPL, freq = FALSE, main = \"Histograma de SSPL\") #Histograma de la variable respuesta (SSPL)\ncurve(dnorm(x, mean(SSPL), sd(SSPL)), col = 1, lty = 1, lwd = 2, add=T) #Dibuja la campana de Gauss\n\nboxplot(SSPL, horizontal = TRUE, main = \"Diagrama de cajas para SSPL\") #Diagrama de cajas de SSPL\n\n#Cáculo de varianzas\n\nSSPL.menor = SSPL [SSPL < median(SSPL)]\nSSPL.mayor = SSPL [SSPL > median(SSPL)]\n\nvar(SSPL.menor)\nvar(SSPL.mayor)\n\nvar(SSPL.menor)/var(SSPL.mayor)\n\n\n\n################Eliminar todas las variables################################\nrm(list=ls()) \n\n",
+    "created" : 1434099554603.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2324595040",
+    "id" : "6DE25784",
+    "lastKnownWriteTime" : 1434101661,
+    "path" : "~/Copy/Informatica/Carrera/3º/2º Cuatrimestre/AA/Proyecto/Proyecto/proyecto.R",
+    "project_path" : "proyecto.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
