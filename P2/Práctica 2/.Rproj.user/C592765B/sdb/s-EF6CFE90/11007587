@@ -1,0 +1,16 @@
+{
+    "contents" : "path = \"~/Copy/Informatica/Carrera/3º/2º Cuatrimestre/AA/Prácticas/P2\"\n\n#######################################\n#Ejercicio 1\n#######################################\nlibrary(ISLR)\nlibrary(MASS)\nfix(Weekly)\nattach(Weekly)\n\n# Apartado 1: #med, desv tipica, percentiles...\nplot(Weekly)\nsummary(Weekly)\ncor(Weekly[,-9])\nYear[which.min(Today)]\n\n# Apartado 2\nglm.fit = glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data = Weekly, family=binomial)              \nsummary(glm.fit)\n#nos fijamos en el p-valor y si el estimado es positivo o negativo. En este caso se podria decir que lag2 tiene alguna relacion, dado que su p-valor es bajo. Aunque no tanto como para asegurarlo con certeza. pag 157 ISLR\n\n#Apartado 3\n#la suma de su diagonal nos dice cuanto he acertado del total. Nos dice lo que nos confundimos entre una clase y otra clase\ndim(Weekly)\ncontrasts(Direction)\nglm.probs = predict( glm.fit , type =\"response\")\nglm.pred = rep(\"Down\",1089)\nglm.pred[glm.probs>.5]=\"Up\"\ntable(glm.pred,Direction)\n(54+557)/1089 #Calculo del porcentaje de acierto\nmean(glm.pred==Direction)\n\n#Apartado 4\n\n#Para año MENOR que 2008\nreg2008 = (Year < 2009)\nWeekly.2008= Weekly[reg2008,]\ndim(Weekly.2008)\nDirection.2008 = Direction[reg2008]\nglm.fit = glm(Direction.2008~Lag2, data = Weekly.2008, family=binomial)              \nglm.probs = predict( glm.fit , type =\"response\")\nglm.pred = rep(\"Down\",985)\nglm.pred[glm.probs>.5]=\"Up\"\ntable(glm.pred,Direction.2008)\nmean(glm.pred==Direction.2008)\n\n#Para años entre 2009 y 2010\nWeekly.200910 = Weekly[!reg2008,]\ndim(Weekly.200910)\nDirection.200910 = Direction[!reg2008]\nglm.fit = glm(Direction.200910~Lag2, data = Weekly.200910, family=binomial)              \nglm.probs = predict( glm.fit , type =\"response\")\nglm.pred = rep(\"Down\",104)\nglm.pred[glm.probs>.5]=\"Up\"\ntable(glm.pred,Direction.200910)\n(8+57)/104\n\n#Apartado 5\n#LDA:\nlda.fit = lda(Direction.200910~Lag1, data = Weekly.200910)\nlda.pred = predict(lda.fit,Weekly.200910)\nlda.class = lda.pred$class\ntable(lda.class,Direction.200910)\nmean(lda.class == Direction.200910)\n\n#QDA\nqda.fit = qda ( Direction.200910~Lag1, data =  Weekly.200910)\nqda.class = predict(qda.fit,Weekly.200910)$class\ntable(qda.class,Direction.200910)\nmean(qda.class == Direction.200910)\n\n#KNN (pag 164 ISLR)\n\n\n\n\n\n\n\n",
+    "created" : 1428594246067.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1674643358",
+    "id" : "11007587",
+    "lastKnownWriteTime" : 1429205035,
+    "path" : "~/Copy/Informatica/Carrera/3º/2º Cuatrimestre/AA/Prácticas/P2/Práctica 2/R/Práctica 2.R",
+    "project_path" : "R/Práctica 2.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
